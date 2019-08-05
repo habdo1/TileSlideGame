@@ -11,9 +11,9 @@ public class Puzzle : MonoBehaviour
 	Block emptyBlock;
 	Block[,] blockMap;
 
-	void InitPuzzle()
+	void initPuzzle()
 	{
-		Texture2D[,] imgCut = ImgCut.GetSlices (img, blocksPerLine);
+		Texture2D[,] imgCut = ImgCut.getSlices (img, blocksPerLine);
 		blockMap = new Block[blocksPerLine, blocksPerLine];
 		shuffleAmt = blocksPerLine * blocksPerLine;
 
@@ -27,7 +27,7 @@ public class Puzzle : MonoBehaviour
 
 				Block block = blockObj.AddComponent<Block> ();
 				block.Init (new Vector2Int (x, y), imgCut [x, y]);
-				block.onBlockPressed += MoveBlockInput;
+				block.onBlockPressed += moveBlockInput;
 				blockMap [x, y] = block;
 
 				if (y == 0 && x == blocksPerLine - 1)
@@ -37,7 +37,7 @@ public class Puzzle : MonoBehaviour
 				}
 			}
 		}
-		ShufflePuzzle ();
+		shufflePuzzle ();
 
 		Camera.main.orthographicSize = blocksPerLine * .6f;
 	}
@@ -45,11 +45,13 @@ public class Puzzle : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		InitPuzzle ();
+		initPuzzle ();
+		print ("Initialized game");
 	}
 
-	void MoveBlock(Block pressedBlock)
+	void moveBlock(Block pressedBlock)
 	{
+		print ("pressed block");
 		bool sameRow = false;
 		bool sameCol = false;
 
@@ -129,12 +131,13 @@ public class Puzzle : MonoBehaviour
 		b.transform.position = TmpPosition;
 	}
 
-	void MoveBlockInput(Block block)
+	void moveBlockInput(Block block)
 	{
-		MoveBlock (block);
+		print ("in moveblockinput");
+		moveBlock (block);
 	}
 
-	void ShuffleOnce(Block a, Block b)
+	void shuffleOnce(Block a, Block b)
 	{
 		blockMap [a.xy.x, a.xy.y] = b;
 		blockMap [b.xy.x, b.xy.y] = a;
@@ -147,7 +150,7 @@ public class Puzzle : MonoBehaviour
 		b.transform.position = TmpPosition;
 	}
 
-	void ShufflePuzzle()
+	void shufflePuzzle()
 	{
 		for (int i = 0; i < shuffleAmt; i++)
 		{
@@ -155,7 +158,7 @@ public class Puzzle : MonoBehaviour
 			int row = rand / blocksPerLine;
 			int col = rand % blocksPerLine;
 
-			ShuffleOnce (emptyBlock, blockMap[row, col]);
+			shuffleOnce (emptyBlock, blockMap[row, col]);
 		}
 	}
 }

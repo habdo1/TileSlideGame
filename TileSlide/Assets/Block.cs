@@ -15,10 +15,10 @@ public class Block : MonoBehaviour {
 
 	public void slideTo(Vector2 end, float time)
 	{
-		StartCoroutine (Slide (end, time));
+		StartCoroutine (slide (end, time));
 	}
 
-	IEnumerator Slide(Vector2 end, float time)
+	IEnumerator slide(Vector2 end, float time)
 	{
 		Vector2 start = transform.position;
 		float progress = 0;
@@ -35,6 +35,7 @@ public class Block : MonoBehaviour {
 	{
 		if (onBlockPressed != null)
 		{
+			print ("In onMouseDown");
 			onBlockPressed (this);
 		}
 	}

@@ -5,7 +5,8 @@ using UnityEngine;
 public class Puzzle : MonoBehaviour
 {
 	public Texture2D img;
-	public int blocksPerLine = 4;
+
+	public int blocksPerLine;
 	int shuffleAmt;
 
 	Block emptyBlock;
@@ -13,6 +14,8 @@ public class Puzzle : MonoBehaviour
 
 	void initPuzzle()
 	{
+		blocksPerLine = GameData.GridSize;
+		print ("Blocks per line: " + blocksPerLine);
 		Texture2D[,] imgCut = ImgCut.getSlices (img, blocksPerLine);
 		blockMap = new Block[blocksPerLine, blocksPerLine];
 		shuffleAmt = blocksPerLine * blocksPerLine;
@@ -160,5 +163,7 @@ public class Puzzle : MonoBehaviour
 
 			shuffleOnce (emptyBlock, blockMap[row, col]);
 		}
+
+		shuffleOnce(emptyBlock, blockMap[blocksPerLine - 1, 0]);
 	}
 }

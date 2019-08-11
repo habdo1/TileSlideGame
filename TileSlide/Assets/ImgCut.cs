@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ImgCut {
+public static class ImgCut
+{
 
 	public static Texture2D[,] getSlices(Texture2D img, int blocksPerLine)
 	{

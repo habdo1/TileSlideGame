@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Puzzle : MonoBehaviour
 {
@@ -40,6 +41,11 @@ public class Puzzle : MonoBehaviour
 				}
 			}
 		}
+
+		//GameObject gameObj = GameObject.Find("GameObject/Canvas");
+		//Transform canvasObj = gameObj.transform;
+		//canvasObj.SetAsLastSibling();
+
 		shufflePuzzle ();
 
 		Camera.main.orthographicSize = blocksPerLine * .6f;

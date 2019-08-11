@@ -10,6 +10,7 @@ public class Block : MonoBehaviour {
 	public void Init(Vector2Int startingxy, Texture2D img)
 	{
 		xy = startingxy;
+		GetComponent<MeshRenderer> ().material.shader = Shader.Find("Unlit/Texture");
 		GetComponent<MeshRenderer> ().material.mainTexture = img;
 	}
 

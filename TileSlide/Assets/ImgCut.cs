@@ -4,7 +4,6 @@ using UnityEngine;
 
 public static class ImgCut
 {
-
 	public static Texture2D[,] getSlices(Texture2D img, int blocksPerLine)
 	{
 		int imgSize = Mathf.Min (img.width, img.height);

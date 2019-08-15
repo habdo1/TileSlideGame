@@ -6,10 +6,12 @@ public class Block : MonoBehaviour {
 
 	public event System.Action<Block> onBlockPressed;
 	public Vector2Int xy;
+	public Vector2Int initialXy;
 
 	public void Init(Vector2Int startingxy, Texture2D img)
 	{
 		xy = startingxy;
+		initialXy = startingxy;
 		GetComponent<MeshRenderer> ().material.shader = Shader.Find("Unlit/Texture");
 		GetComponent<MeshRenderer> ().material.mainTexture = img;
 	}
@@ -39,5 +41,10 @@ public class Block : MonoBehaviour {
 			print ("In onMouseDown");
 			onBlockPressed (this);
 		}
+	}
+
+	public bool isAtStart()
+	{
+		return initialXy == xy;
 	}
 }

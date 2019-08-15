@@ -6,20 +6,32 @@ using UnityEngine.UI;
 public class Puzzle : MonoBehaviour
 {
 	public Texture2D img;
-
+	public Texture2D[] images = new Texture2D[10];
 	public int blocksPerLine;
 	int shuffleAmt;
 
 	Block emptyBlock;
 	Block[,] blockMap;
+	bool puzzleSolved;
 
 	void initPuzzle()
 	{
+		puzzleSolved = false;
 		blocksPerLine = GameData.GridSize;
-		print ("Blocks per line: " + blocksPerLine);
+		shuffleAmt = blocksPerLine * blocksPerLine;
+
+		int imgIndex = Random.Range(0, 10);
+		while(imgIndex == GameData.ImgIndex)
+		{
+			imgIndex = Random.Range(0, 10);
+		}
+
+		GameData.ImgIndex = imgIndex;
+		print("imgIndex = " + imgIndex);
+		
+		img = images[imgIndex];
 		Texture2D[,] imgCut = ImgCut.getSlices (img, blocksPerLine);
 		blockMap = new Block[blocksPerLine, blocksPerLine];
-		shuffleAmt = blocksPerLine * blocksPerLine;
 
 		for (int y = 0; y < blocksPerLine; y++)
 		{
@@ -41,14 +53,9 @@ public class Puzzle : MonoBehaviour
 				}
 			}
 		}
-
-		//GameObject gameObj = GameObject.Find("GameObject/Canvas");
-		//Transform canvasObj = gameObj.transform;
-		//canvasObj.SetAsLastSibling();
-
 		shufflePuzzle ();
 
-		Camera.main.orthographicSize = blocksPerLine * .6f;
+		Camera.main.orthographicSize = blocksPerLine * 1.05f;
 	}
 
 	// Use this for initialization
@@ -143,7 +150,11 @@ public class Puzzle : MonoBehaviour
 	void moveBlockInput(Block block)
 	{
 		print ("in moveblockinput");
+		if(puzzleSolved) return;
+
 		moveBlock (block);
+		checkForSolution();
+		if(puzzleSolved) completeGame();
 	}
 
 	void shuffleOnce(Block a, Block b)
@@ -171,5 +182,23 @@ public class Puzzle : MonoBehaviour
 		}
 
 		shuffleOnce(emptyBlock, blockMap[blocksPerLine - 1, 0]);
+	}
+	void checkForSolution()
+	{
+		foreach (var block in blockMap)
+		{
+			if(!block.isAtStart()) return;
+		}
+
+		puzzleSolved = true;
+		emptyBlock.gameObject.SetActive(true);
+	}
+	void completeGame()
+	{
+		print("Puzzle solved");
+		GameObject timer = GameObject.Find("Timer");
+		timer.GetComponent<Timer>().stopTime = true;
+		Text text = timer.GetComponent<Text>();
+		text.text = "Solved in " + text.text + "!";
 	}
 }

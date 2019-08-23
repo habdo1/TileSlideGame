@@ -62,6 +62,7 @@
      <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\MenuSwitch.cs" />
      <Compile Include="Assets\Puzzle.cs" />
+     <Compile Include="Assets\SoundScript.cs" />
      <Compile Include="Assets\Timer.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

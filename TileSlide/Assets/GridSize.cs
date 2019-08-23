@@ -5,12 +5,17 @@ using UnityEngine.UI;
 
 public class GridSize : MonoBehaviour
 {
-    public int gridSize = 4;
+    int gridSize = 4;
     Text gridSizeText;
+    public Slider slider;
 
     void Start ()
     {
         gridSizeText = GetComponent<Text> ();
+        gridSizeText.text = GameData.GridSize.ToString();
+        gridSize = GameData.GridSize;
+        slider = GameObject.Find("Slider").GetComponent<Slider>();
+        slider.value = GameData.GridSize;
     }
     public void updateGridSize (float newValue)
     {

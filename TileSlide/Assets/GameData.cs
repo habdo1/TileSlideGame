@@ -4,6 +4,19 @@ using UnityEngine;
 
 public static class GameData
 {
+    private static bool audio = true;
+    public static bool Audio 
+    {
+        get 
+        {
+            return audio;
+        }
+        set 
+        {
+            audio = value;
+        }
+    }
+
     private static int imgIndex = 10;
     public static int ImgIndex 
     {

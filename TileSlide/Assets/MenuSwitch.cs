@@ -8,6 +8,10 @@ public class MenuSwitch : MonoBehaviour
     public void goToMainMenu ()
     {
         SceneManager.LoadScene("Menu");
+        GameObject mainMenu = GameObject.Find("MainMenu");
+        mainMenu.SetActive(true);
+        GameObject settingsMenu = GameObject.Find("SettingsMenu");
+        settingsMenu.SetActive(false);
     }
 
 	public void playGame()

@@ -21,7 +21,7 @@ public class Puzzle : MonoBehaviour
 		shuffleAmt = blocksPerLine * blocksPerLine;
 
 		int imgIndex = Random.Range(0, 10);
-		while(imgIndex == GameData.ImgIndex)
+		while (imgIndex == GameData.ImgIndex)
 		{
 			imgIndex = Random.Range(0, 10);
 		}
@@ -58,7 +58,6 @@ public class Puzzle : MonoBehaviour
 		Camera.main.orthographicSize = blocksPerLine * 1.05f;
 	}
 
-	// Use this for initialization
 	void Start ()
 	{
 		initPuzzle ();
@@ -78,6 +77,11 @@ public class Puzzle : MonoBehaviour
 
 		if (sameCol || sameRow)
 		{
+			if(GameData.Audio)
+			{
+				SoundScript.playSound("ClickSound");
+			}
+
 			if (sameRow)
 			{
 				if (pressedBlock.xy.x < emptyBlock.xy.x)
@@ -183,6 +187,7 @@ public class Puzzle : MonoBehaviour
 
 		shuffleOnce(emptyBlock, blockMap[blocksPerLine - 1, 0]);
 	}
+
 	void checkForSolution()
 	{
 		foreach (var block in blockMap)
@@ -193,9 +198,14 @@ public class Puzzle : MonoBehaviour
 		puzzleSolved = true;
 		emptyBlock.gameObject.SetActive(true);
 	}
+
 	void completeGame()
 	{
 		print("Puzzle solved");
+		if(GameData.Audio)
+		{
+			SoundScript.playSound("VictorySound");
+		}
 		GameObject timer = GameObject.Find("Timer");
 		timer.GetComponent<Timer>().stopTime = true;
 		Text text = timer.GetComponent<Text>();
